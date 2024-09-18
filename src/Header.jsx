@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
 import Moon from "../src/assets/icons/moon.svg";
+import Sun from "../src/assets/icons/sun.svg";
 import Logo from "../src/assets/logo.svg";
 import Rign from "../src/assets/ring.svg";
 import Cart from "../src/assets/shopping-cart.svg";
 import CardDetails from "./cine/CardDetails";
-import { MovieContext } from "./Context";
+import { MovieContext, ThemeContext } from "./Context";
 function Header() {
   const [showCard, setShowCard] = useState(false);
+  const { darkMode, setDarkMode } = useContext(ThemeContext);
 
   const { cartData } = useContext(MovieContext);
   console.log(cartData);
@@ -35,8 +37,9 @@ function Header() {
             <a
               className="bg-primary/20 dark:bg-primary/[7%] rounded-lg backdrop-blur-[2px] p-1 inline-block"
               href="#"
+              onClick={() => setDarkMode((darkMode) => !darkMode)}
             >
-              <img src={Moon} width="24" height="24" alt="" />
+              <img src={darkMode ? Sun : Moon} width="24" height="24" alt="" />
             </a>
           </li>
           <li>
