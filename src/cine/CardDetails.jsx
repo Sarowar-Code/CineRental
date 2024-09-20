@@ -4,13 +4,13 @@ import Checkout from "../assets/icons/checkout.svg";
 import { MovieContext } from "../Context";
 import { getimgUrl } from "../Utils/Cine-Utility";
 function CardDetails({ onClose }) {
-  const { cartData, setCartData } = useContext(MovieContext);
-  function handleDeleteCart(event, itemId) {
+  const { state, dispatch } = useContext(MovieContext);
+  function handleDeleteCart(event, item) {
     event.preventDefault();
-    const FilteredItem = cartData.filter((item) => {
-      return item.id !== itemId;
+    dispatch({
+      type: "REMOVE_FROM_CART",
+      payload: item,
     });
-    setCartData([...FilteredItem]);
   }
   return (
     <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-black/60 backdrop-blur-sm">
@@ -20,12 +20,12 @@ function CardDetails({ onClose }) {
             Your Carts
           </h2>
           <div className="space-y-8 lg:space-y-12 max-h-[450px] overflow-auto mb-10 lg:mb-14">
-            {cartData.length === 0 ? (
+            {state.cartData.length === 0 ? (
               <p className="text-3xl font-bold text-red-500">
                 The Card is Empty !!
               </p>
             ) : (
-              cartData.map((item) => (
+              state.cartData.map((item) => (
                 <div key={item.id} className="grid grid-cols-[1fr_auto] gap-4">
                   <div className="flex items-center gap-4">
                     <img
@@ -47,7 +47,7 @@ function CardDetails({ onClose }) {
                   </div>
                   <div className="flex justify-between gap-4 items-center">
                     <button
-                      onClick={() => handleDeleteCart(event, item.id)}
+                      onClick={() => handleDeleteCart(event, item)}
                       className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white"
                     >
                       <img className="w-5 h-5" src={Delete} alt="" />

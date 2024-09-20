@@ -10,8 +10,8 @@ function Header() {
   const [showCard, setShowCard] = useState(false);
   const { darkMode, setDarkMode } = useContext(ThemeContext);
 
-  const { cartData } = useContext(MovieContext);
-  console.log(cartData);
+  const { state } = useContext(MovieContext);
+  console.log(state.cartData);
 
   function handleCardShow() {
     setShowCard(true);
@@ -49,9 +49,9 @@ function Header() {
               onClick={handleCardShow}
             >
               <img src={Cart} width="24" height="24" alt="" />
-              {cartData.length > 0 && (
+              {state.cartData.length > 0 && (
                 <span className="rounded-full absolute top-[-12px] left-[25px] bg-[#12CF6F] text-white text-center p-[2px] w-[30px] h-[30px]">
-                  {cartData.length}
+                  {state.cartData.length}
                 </span>
               )}
             </a>
